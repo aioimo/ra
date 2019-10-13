@@ -59,10 +59,11 @@ export class Auth {
   };
 
   logout = () => {
-    this.clearLocalStorage();
+    this.clearLocalData();
   };
 
-  clearLocalStorage = () => {
+  clearLocalData = () => {
+    this.decoded = null;
     this.storage.removeItem(TOKEN_KEY);
     this.storage.removeItem(EMAIL_KEY);
   };
