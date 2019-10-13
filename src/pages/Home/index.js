@@ -1,41 +1,8 @@
 import React from 'react';
+import { get, post } from '../../lib/request';
 
-const createGame = async ({ auth, payload }) => {
-  const url = `${auth.api.apiRoot}/api/games`;
-
-  const response = await fetch(url, {
-    method: 'POST',
-    body: JSON.stringify(payload),
-    headers: {
-      'Content-Type': 'application/json',
-      'auth-token': auth.getRawToken()
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`API ERROR: ${response.statusText}`);
-  }
-
-  return await response.json();
-};
-
-const fetchGames = async ({ auth }) => {
-  const url = `${auth.api.apiRoot}/api/games`;
-
-  const response = await fetch(url, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'auth-token': auth.getRawToken()
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error(`API ERROR: ${response.statusText}`);
-  }
-
-  return await response.json();
-};
+const createGame = payload => post('games', payload);
+const fetchGames = () => get('games');
 
 export class Home extends React.Component {
   constructor(props) {
@@ -46,17 +13,15 @@ export class Home extends React.Component {
   }
 
   async componentDidMount() {
-    const { auth } = this.props;
-    const res = await fetchGames({ auth });
+    const res = await fetchGames();
     this.setState({ games: res.data });
   }
 
   createNewGame = async e => {
     e.preventDefault();
-    const { auth } = this.props;
     const payload = { numberPlayers: 3 };
-    await createGame({ auth, payload });
-    const res = await fetchGames({ auth });
+    await createGame(payload);
+    const res = await fetchGames();
     this.setState({ games: res.data });
   };
 
