@@ -57,4 +57,13 @@ export class Auth {
     this.storage.setItem(TOKEN_KEY, jwt);
     this.storage.setItem(EMAIL_KEY, email);
   };
+
+  logout = () => {
+    this.clearLocalStorage();
+  };
+
+  clearLocalStorage = () => {
+    this.storage.removeItem(TOKEN_KEY);
+    this.storage.removeItem(EMAIL_KEY);
+  };
 }

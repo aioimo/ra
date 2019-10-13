@@ -12,11 +12,26 @@ function App() {
     <div className='App'>
       <nav className='Nav'>
         {auth.isLoggedIn() ? (
-          <>Logged in as {auth.getEmail()}</>
+          <>
+            <span
+              className='LogoutButton NavItem'
+              onClick={() => {
+                auth.logout();
+                window.location.reload();
+              }}
+            >
+              Logout
+            </span>
+            <span className='NavItem'>Logged in as {auth.getEmail()}</span>
+          </>
         ) : (
           <>
-            <Link to='/signup'>Signup</Link>
-            <Link to='/login'>Login</Link>
+            <Link className='NavItem' to='/signup'>
+              Signup
+            </Link>
+            <Link className='NavItem' to='/login'>
+              Login
+            </Link>
           </>
         )}
       </nav>
@@ -40,6 +55,7 @@ function App() {
             path='/login'
             render={props => <pages.Login {...props} auth={auth} />}
           />
+          <Route path='/' render={() => <Redirect to='/login' />} />
         </Switch>
       )}
     </div>

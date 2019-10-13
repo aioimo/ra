@@ -29,3 +29,11 @@
   flex-direction: row-reverse;
   box-sizing: border-box;
 }
+
+.NavItem {
+  margin: 0 0.5rem;
+}
+
+.LogoutButton:hover {
+  cursor: pointer;
+}

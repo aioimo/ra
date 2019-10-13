@@ -9,7 +9,7 @@ export const Login = ({ auth }) => {
     console.log('login callled...', { password, email });
     auth
       .login({ password, email })
-      .then(res => {
+      .then(() => {
         window.location.reload();
       })
       .catch(err => {
